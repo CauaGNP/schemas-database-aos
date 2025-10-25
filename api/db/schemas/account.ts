@@ -1,14 +1,14 @@
 import { relations } from "drizzle-orm";
 import { pgEnum, pgTable, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
-import { userTable } from "./user";
 import { transactionTable } from "./transaction";
+import { userTable } from "./user";
 
 export const accountTypeValues = [
-  "checking",     // corrente
-  "savings",      // poupanca
-  "salary",       // salario
-  "investment",   // investimento
-  "digital",      // digital
+  "checking",
+  "savings",
+  "salary",
+  "investment",
+  "digital",
 ] as const;
 
 export const accountTypeEnum = pgEnum("accountType", accountTypeValues);
@@ -32,5 +32,5 @@ export const accountRelations = relations(accountTable, ({ one, many }) => ({
     fields: [accountTable.user_id],
     references: [userTable.id],
   }),
-  transactions: many(transactionTable)
+  transactions: many(transactionTable),
 }));
