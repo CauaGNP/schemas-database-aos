@@ -22,7 +22,7 @@ export const transactionTable = pgTable("Transaction", {
   id: uuid().defaultRandom().primaryKey(),
   type: transactionTypeEnum().notNull(),
   value: numeric().notNull(),
-  date: date({ mode: "string" }).notNull(),
+  date: date({ mode: "date" }).notNull(),
   description: varchar().notNull(),
   created_at: timestamp().defaultNow().notNull(),
   updated_at: timestamp()
