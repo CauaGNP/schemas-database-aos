@@ -14,7 +14,7 @@ export const financialGoalTable = pgTable("Financial_Goal", {
   description: varchar({ length: 255 }).notNull(),
   target_value: numeric().notNull(),
   current_value: numeric().default("0").notNull(),
-  deadline: date({ mode: "string" }).notNull(),
+  deadline: date({ mode: "date" }).notNull(),
   created_at: timestamp().defaultNow().notNull(),
   updated_at: timestamp()
     .defaultNow()
