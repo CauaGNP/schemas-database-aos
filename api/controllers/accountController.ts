@@ -79,9 +79,9 @@ const updateAccountById = async (req: Request, res: Response) => {
             })
         }
 
-        const existAccountVerify = await getAccountByIdService(accountId);
+        const verifyExistAccountData = await getAccountByIdService(accountId);
 
-        if(!existAccountVerify){
+        if(!verifyExistAccountData){
             return res.status(404).send({
                 message: "Account not found"
             })
@@ -106,6 +106,14 @@ const deleteAccountById = async (req: Request, res: Response) => {
         if(!accountId){
             return res.status(400).send({
                 message: "Prease insert accountId"
+            })
+        }
+
+        const verifyExistAccountData = await getAccountByIdService(accountId);
+
+        if(!verifyExistAccountData){
+            return res.status(404).send({
+                message: "Account not found"
             })
         }
 

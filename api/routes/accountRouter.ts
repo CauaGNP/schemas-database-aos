@@ -5,9 +5,9 @@ import { createAccount, deleteAccountById, getAccountById, getAllAccounts, updat
 const router = Router();
 
 router.get("/", getAllAccounts);
-router.get("/:financialGoalId", getAccountById);
+router.get("/:accountId", getAccountById);
 router.post("/", createAccount);
-router.put("/:financialGoalId", updateAccountById);
-router.delete("/:financialGoalId", deleteAccountById);
+router.put("/:accountId", updateAccountById);
+router.delete("/:accountId", deleteAccountById);
 
 export default router;

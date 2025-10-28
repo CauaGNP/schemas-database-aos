@@ -84,9 +84,9 @@ const updateUserById = async (req: Request, res: Response) => {
       });
     }
 
-    const verifyUserExist = await getUserByIdService(userId);
+    const verifyExistUserData = await getUserByIdService(userId);
 
-    if (!verifyUserExist) {
+    if (!verifyExistUserData) {
       return res.status(404).send({
         message: "User not found",
       });
@@ -115,9 +115,9 @@ const deleteUserById = async (req: Request, res: Response) => {
       });
     }
 
-    const verifyUserExist = await getUserByIdService(userId);
+    const verifyExistUserData = await getUserByIdService(userId);
 
-    if (!verifyUserExist) {
+    if (!verifyExistUserData) {
       return res.status(404).send({
         message: "User not found",
       });

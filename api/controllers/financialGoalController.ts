@@ -1,8 +1,6 @@
 import type { Request, Response } from "express";
 import { createFinancialGoalService, deleteFinancialGoalService, getAllFinalcialGoalsService, getFinancialGoalByIdService, updateFinancialGoalByIdService } from "../services/financialGoalService.js";
-import z from "zod";
 import { financialGoalDTO } from "../dto/financialGoalDTO.js";
-import { database } from "../db/index.js";
 
 const getAllFinancialGoal = async (req: Request, res: Response) => {
     try {
@@ -81,9 +79,9 @@ const updateFinancialGoalById = async (req: Request, res: Response) => {
             })
         }
 
-        const verifyExistFinancialGoal = await getFinancialGoalByIdService(financialGoalId);
+        const verifyExistFinancialGoalData = await getFinancialGoalByIdService(financialGoalId);
 
-        if(!verifyExistFinancialGoal){
+        if(!verifyExistFinancialGoalData){
             return res.status(404).send({
                 message: "Financial Goal not found",
             })
@@ -112,9 +110,9 @@ const deleteFinancialGoalById = async (req: Request, res: Response) => {
             })
         }
 
-        const verifyExistFinancialGoal = await getFinancialGoalByIdService(financialGoalId);
+        const verifyExistFinancialGoalData = await getFinancialGoalByIdService(financialGoalId);
 
-        if(!verifyExistFinancialGoal){
+        if(!verifyExistFinancialGoalData){
             return res.status(404).send({
                 message: "Financial Goal not found",
             })
