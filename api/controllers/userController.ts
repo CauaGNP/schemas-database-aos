@@ -1,4 +1,5 @@
 import type { Request, Response } from "express";
+import { userDTO } from "../dto/userDTO.js";
 import {
   createUserService,
   deleteUserByIdService,
@@ -58,7 +59,9 @@ const getUserById = async (req: Request, res: Response) => {
 
 const createUser = async (req: Request, res: Response) => {
   try {
-    const userData = await createUserService(req.body);
+    const parsedData = userDTO.parse(req.body);
+
+    const userData = await createUserService(parsedData);
 
     res.status(201).send({
       message: "Request sucessfully, created user",
@@ -91,8 +94,9 @@ const updateUserById = async (req: Request, res: Response) => {
         message: "User not found",
       });
     }
+    const parsedData = userDTO.partial().parse(req.body);
 
-    await updateUserByIdService(userId, req.body);
+    await updateUserByIdService(userId, parsedData);
 
     res.status(204).send();
   } catch (error) {

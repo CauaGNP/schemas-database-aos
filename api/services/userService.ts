@@ -14,7 +14,7 @@ const getUserByIdService = async (userId: string) => {
 };
 
 const createUserService = async (data: UserDTO) => {
-  return await database.insert(userTable).values(data);
+  return await database.insert(userTable).values(data).returning();
 };
 
 const updateUserByIdService = async (
@@ -24,7 +24,8 @@ const updateUserByIdService = async (
   return await database
     .update(userTable)
     .set(data)
-    .where(eq(userTable.id, userId));
+    .where(eq(userTable.id, userId))
+    .returning();
 };
 
 const deleteUserByIdService = async (userId: string) => {
