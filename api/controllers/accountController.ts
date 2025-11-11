@@ -27,7 +27,7 @@ const getAllAccounts = async (req: Request, res: Response) => {
 
 const getAccountById = async (req: Request, res: Response) => {
   try {
-    const { accountId } = req.params;
+    const { accountId } = req.he;
 
     if (!accountId) {
       return res.status(400).send({
