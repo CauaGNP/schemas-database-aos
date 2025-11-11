@@ -20,3 +20,5 @@ server.use("/user", router.user);
 server.use("/account", router.account);
 server.use("/financial-goal", router.financialGoal);
 server.use("/category", router.category);
+server.use("/transaction", router.transaction);
+server.use("/monthly-budget", router.monthlyBudget);

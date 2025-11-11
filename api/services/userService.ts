@@ -1,6 +1,7 @@
 import { eq } from "drizzle-orm";
 import { database } from "../db/index.js";
 import { userTable } from "../db/schemas/user.js";
+import type { AuthenticationDTO } from "../dto/authenticationDTO.js";
 import type { UserDTO } from "../dto/userDTO.js";
 
 const getAllUsersService = async () => {
@@ -10,6 +11,12 @@ const getAllUsersService = async () => {
 const getUserByIdService = async (userId: string) => {
   return await database.query.userTable.findFirst({
     where: eq(userTable.id, userId),
+  });
+};
+
+const getUserByEmail = async (data: AuthenticationDTO) => {
+  return await database.query.userTable.findFirst({
+    where: eq(userTable.email, data.email),
   });
 };
 
@@ -36,6 +43,7 @@ export {
   createUserService,
   deleteUserByIdService,
   getAllUsersService,
+  getUserByEmail,
   getUserByIdService,
   updateUserByIdService,
 };
