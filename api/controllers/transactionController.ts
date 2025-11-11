@@ -1,0 +1,102 @@
+import type { Request, Response } from "express";
+import { createTransactionService, getAllTransactionsService, getTransactionByIdService } from "../services/transactionService";
+import { transactionDTO } from "../dto/transationDTO";
+
+const getAllTransaction = async (req: Request, res: Response) => {
+    try {
+        const transactionList = await getAllTransactionsService();
+
+        res.status(200).send({
+            message: "Requet sucessfully",
+            data: transactionList,
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({
+            message: "Server Error",
+            erro: error,
+        });
+    }
+}
+
+const getTransactionById = async (req: Request, res: Response) => {
+    try {
+        const { transactionId } = req.params; 
+
+        if(!transactionId){
+            return res.status(400).send({
+                message: "Please insert transactionId",
+            });
+        }
+
+        const transactionData = await getTransactionByIdService(transactionId)
+    
+        if (!transactionData) {
+        return res.status(404).send({
+            message: "User not found",
+        });
+        }
+
+        res.status(200).send({
+            message: "Request sucessfuly, transaction found!!",
+            data: transactionData
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({
+            message: "Server Error",
+            erro: error,
+        });
+    }
+}
+
+const createTransaction = async (req: Request, res: Response) => {
+    try {
+        const parsedData = transactionDTO.parse(req.body);
+
+        const transactionData = createTransactionService(parsedData);
+
+        res.status(201).send({
+            message: "Request sucessfully, created transaction",
+            data: transactionData,
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({
+            message: "Server Error",
+            erro: error,
+        });
+    }
+}
+
+const updateTransactionById = async (req: Request, res: Response) => {
+    try {
+        const { transactionId } = req.params; 
+
+        if(!transactionId){
+            return res.status(400).send({
+                message: "Please insert transactionId",
+            });
+        }
+
+        const verifyTransactionExist = await getTransactionByIdService(transactionId)
+    
+        if (!verifyTransactionExist) {
+        return res.status(404).send({
+            message: "User not found",
+        });
+        }
+
+        const parsedData = transactionDTO.partial().parse(req.body);
+
+        await createTransactionService(transactionId, parsedData);
+
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({
+            message: "Server Error",
+            erro: error,
+        });
+    }
+}

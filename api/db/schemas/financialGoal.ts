@@ -21,7 +21,7 @@ export const financialGoalTable = pgTable("Financial_Goal", {
     .$onUpdate(() => new Date()),
   user_id: uuid()
     .notNull()
-    .references(() => userTable.id),
+    .references(() => userTable.id, { onDelete: "cascade" }),
 });
 
 export const financialGoalRelations = relations(

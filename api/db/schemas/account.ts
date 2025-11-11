@@ -24,7 +24,7 @@ export const accountTable = pgTable("Account", {
     .$defaultFn(() => new Date()),
   user_id: uuid()
     .notNull()
-    .references(() => userTable.id),
+    .references(() => userTable.id, { onDelete: "cascade" }),
 });
 
 export const accountRelations = relations(accountTable, ({ one, many }) => ({
